@@ -1,0 +1,16 @@
+D:\git\Csharp_DedicatedServer_Tutorial\Server\GameServer\GameServer\bin\Debug\net5.0\GameServer.exe
+D:\git\Csharp_DedicatedServer_Tutorial\Server\GameServer\GameServer\bin\Debug\net5.0\GameServer.deps.json
+D:\git\Csharp_DedicatedServer_Tutorial\Server\GameServer\GameServer\bin\Debug\net5.0\GameServer.runtimeconfig.json
+D:\git\Csharp_DedicatedServer_Tutorial\Server\GameServer\GameServer\bin\Debug\net5.0\GameServer.runtimeconfig.dev.json
+D:\git\Csharp_DedicatedServer_Tutorial\Server\GameServer\GameServer\bin\Debug\net5.0\GameServer.dll
+D:\git\Csharp_DedicatedServer_Tutorial\Server\GameServer\GameServer\bin\Debug\net5.0\ref\GameServer.dll
+D:\git\Csharp_DedicatedServer_Tutorial\Server\GameServer\GameServer\bin\Debug\net5.0\GameServer.pdb
+D:\git\Csharp_DedicatedServer_Tutorial\Server\GameServer\GameServer\obj\Debug\net5.0\GameServer.csproj.AssemblyReference.cache
+D:\git\Csharp_DedicatedServer_Tutorial\Server\GameServer\GameServer\obj\Debug\net5.0\GameServer.GeneratedMSBuildEditorConfig.editorconfig
+D:\git\Csharp_DedicatedServer_Tutorial\Server\GameServer\GameServer\obj\Debug\net5.0\GameServer.AssemblyInfoInputs.cache
+D:\git\Csharp_DedicatedServer_Tutorial\Server\GameServer\GameServer\obj\Debug\net5.0\GameServer.AssemblyInfo.cs
+D:\git\Csharp_DedicatedServer_Tutorial\Server\GameServer\GameServer\obj\Debug\net5.0\GameServer.csproj.CoreCompileInputs.cache
+D:\git\Csharp_DedicatedServer_Tutorial\Server\GameServer\GameServer\obj\Debug\net5.0\GameServer.dll
+D:\git\Csharp_DedicatedServer_Tutorial\Server\GameServer\GameServer\obj\Debug\net5.0\ref\GameServer.dll
+D:\git\Csharp_DedicatedServer_Tutorial\Server\GameServer\GameServer\obj\Debug\net5.0\GameServer.pdb
+D:\git\Csharp_DedicatedServer_Tutorial\Server\GameServer\GameServer\obj\Debug\net5.0\GameServer.genruntimeconfig.cache

@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "dgSpecHash": "TTmzCkYFDZUDuwGNsAK161Cp3wUtcwRwGx+x+g/XX6oideok527xSO3kUr6e4qRk12JQOON4oGWkeWVvGnLq4Q==",
+  "success": true,
+  "projectFilePath": "D:\\git\\Csharp_DedicatedServer_Tutorial\\Server\\GameServer\\GameServer\\GameServer.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\diamoboy\\.nuget\\packages\\microsoft.netcore.app.host.win-x64\\5.0.15\\microsoft.netcore.app.host.win-x64.5.0.15.nupkg.sha512",
+    "C:\\Users\\diamoboy\\.nuget\\packages\\microsoft.netcore.app.ref\\5.0.0\\microsoft.netcore.app.ref.5.0.0.nupkg.sha512"
+  ],
+  "logs": []
+}
