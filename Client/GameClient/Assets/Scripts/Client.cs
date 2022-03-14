@@ -4,6 +4,7 @@ using UnityEngine;
 using System.Net;
 using System.Net.Sockets;
 using System;
+using GameServer;
 
 public class Client : MonoBehaviour
 {
@@ -34,7 +35,7 @@ public class Client : MonoBehaviour
 
     public class TCP{
         public TcpClient socket;
-        
+        private Packet receiveData;
         private NetworkStream stream;
         private byte[] receiveBuffer;
 
@@ -56,6 +57,8 @@ public class Client : MonoBehaviour
 
             stream=socket.GetStream();
 
+            receiveData=new Packet();
+
             stream.BeginRead(receiveBuffer, 0, dataBufferSize, ReceiveCallback, null);
         }
 
@@ -70,6 +73,7 @@ public class Client : MonoBehaviour
                 byte[] _data=new byte[_byteLength];
                 Array.Copy(receiveBuffer, _data, _byteLength);
 
+                
                 stream.BeginRead(receiveBuffer, 0, dataBufferSize, ReceiveCallback, null);
             }
             catch
