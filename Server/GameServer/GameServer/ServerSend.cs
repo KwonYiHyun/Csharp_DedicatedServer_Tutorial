@@ -14,6 +14,7 @@ namespace GameServer
             Server.clients[_toClient].tcp.SendData(_packet);
         }
 
+        // 모든클라이언트한테 전송
         private static void SendTCPDataToAll(Packet _packet)
         {
             _packet.WriteLength();

@@ -51,6 +51,7 @@ namespace GameServer
 
         #region Functions
         /// <summary>Sets the packet's content and prepares it to be read.</summary>
+        // 패킷의 내용을 설정하고 읽을 수 있도록 준비합니다.
         /// <param name="_data">The bytes to add to the packet.</param>
         public void SetBytes(byte[] _data)
         {
@@ -59,6 +60,7 @@ namespace GameServer
         }
 
         /// <summary>Inserts the length of the packet's content at the start of the buffer.</summary>
+        // 버퍼의 시작부분에 패킷 내용의 길이를 삽입합니다.
         public void WriteLength()
         {
             buffer.InsertRange(0, BitConverter.GetBytes(buffer.Count)); // Insert the byte length of the packet at the very beginning
@@ -85,12 +87,14 @@ namespace GameServer
         }
 
         /// <summary>Gets the length of the unread data contained in the packet.</summary>
+        // 패킷에 포함된 읽지 않은 데이터의 길이를 가져옵니다.
         public int UnreadLength()
         {
             return Length() - readPos; // Return the remaining length (unread)
         }
 
         /// <summary>Resets the packet instance to allow it to be reused.</summary>
+        // 패킷 인스턴스를 재사용할 수 있도록 재설정합니다.
         /// <param name="_shouldReset">Whether or not to reset the packet.</param>
         public void Reset(bool _shouldReset = true)
         {
@@ -115,9 +119,12 @@ namespace GameServer
             buffer.Add(_value);
         }
         /// <summary>Adds an array of bytes to the packet.</summary>
+        // 패킷에 바이트 배열을 추가합니다.
         /// <param name="_value">The byte array to add.</param>
         public void Write(byte[] _value)
         {
+            // AddRange()
+            // 지정된 컬렉션의 요소를 시스템 끝에 추가합니다.
             buffer.AddRange(_value);
         }
         /// <summary>Adds a short to the packet.</summary>
@@ -190,9 +197,11 @@ namespace GameServer
             {
                 // If there are unread bytes
                 byte[] _value = buffer.GetRange(readPos, _length).ToArray(); // Get the bytes at readPos' position with a range of _length
+                // 만약 읽는 위치를 옮긴다면
                 if (_moveReadPos)
                 {
                     // If _moveReadPos is true
+                    // 읽을 위치를 길이만큼 더한다
                     readPos += _length; // Increase readPos by _length
                 }
                 return _value; // Return the bytes
@@ -225,7 +234,9 @@ namespace GameServer
         }
 
         /// <summary>Reads an int from the packet.</summary>
+        // 패킷에서 int를 읽습니다.
         /// <param name="_moveReadPos">Whether or not to move the buffer's read position.</param>
+        // 버퍼의 읽기 위치를 이동할지 여부를 지정합니다.
         public int ReadInt(bool _moveReadPos = true)
         {
             if (buffer.Count > readPos)
