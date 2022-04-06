@@ -260,6 +260,7 @@ namespace GameServer
         // 패킷에서 int를 읽습니다.
         /// <param name="_moveReadPos">Whether or not to move the buffer's read position.</param>
         // 버퍼의 읽기 위치를 이동할지 여부를 지정합니다.
+        // 이걸로 id를 바로받아온다 원리 모르겠음
         public int ReadInt(bool _moveReadPos = true)
         {
             if (buffer.Count > readPos)
