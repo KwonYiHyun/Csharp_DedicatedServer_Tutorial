@@ -13,6 +13,7 @@ namespace GameServer
         private static bool actionToExecuteOnMainThread = false;
 
         /// <summary>Sets an action to be executed on the main thread.</summary>
+        // 기본 스레드에서 실행할 액션을 설정합니다.
         /// <param name="_action">The action to be executed on the main thread.</param>
         public static void ExecuteOnMainThread(Action _action)
         {
@@ -30,6 +31,7 @@ namespace GameServer
         }
 
         /// <summary>Executes all code meant to run on the main thread. NOTE: Call this ONLY from the main thread.</summary>
+        // 주 스레드에서 실행되도록 의도된 모든 코드를 실행합니다. 참고: 메인 스레드에서만 호출하십시오.
         public static void UpdateMain()
         {
             if (actionToExecuteOnMainThread)

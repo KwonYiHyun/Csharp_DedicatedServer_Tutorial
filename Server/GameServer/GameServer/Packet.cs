@@ -56,6 +56,8 @@ namespace GameServer
         public void SetBytes(byte[] _data)
         {
             Write(_data);
+            // ToArray()
+            // 시스템의 요소를 복사합니다. 새배열로.
             readableBuffer = buffer.ToArray();
         }
 
@@ -67,6 +69,7 @@ namespace GameServer
         }
 
         /// <summary>Inserts the given int at the start of the buffer.</summary>
+        // 버퍼의 시작부분에 지정된 int를 삽입합니다.
         /// <param name="_value">The int to insert.</param>
         public void InsertInt(int _value)
         {
@@ -74,6 +77,7 @@ namespace GameServer
         }
 
         /// <summary>Gets the packet's content in array form.</summary>
+        // 배열 형식의 패킷 내용을 가져옵니다.
         public byte[] ToArray()
         {
             readableBuffer = buffer.ToArray();
@@ -81,6 +85,7 @@ namespace GameServer
         }
 
         /// <summary>Gets the length of the packet's content.</summary>
+        // 패킷의 내용 길이를 가져옵니다. 버퍼의 길이를 리턴합니다.
         public int Length()
         {
             return buffer.Count; // Return the length of buffer
@@ -106,12 +111,16 @@ namespace GameServer
             }
             else
             {
+                // 마지막으로 읽은 내용을 읽지 않은 상태로 만든다.
                 readPos -= 4; // "Unread" the last read int
             }
         }
         #endregion
 
+        // Write()
+        // buffer에 byte, byte[], short, int, long, float, bool, string등의 값을 추가한다
         #region Write Data
+
         /// <summary>Adds a byte to the packet.</summary>
         /// <param name="_value">The byte to add.</param>
         public void Write(byte _value)
@@ -131,6 +140,8 @@ namespace GameServer
         /// <param name="_value">The short to add.</param>
         public void Write(short _value)
         {
+            // BitConverter.GetBytes()
+            // 지정한 값을 바이트 배열로 반환합니다.
             buffer.AddRange(BitConverter.GetBytes(_value));
         }
         /// <summary>Adds an int to the packet.</summary>
@@ -161,19 +172,27 @@ namespace GameServer
         /// <param name="_value">The string to add.</param>
         public void Write(string _value)
         {
+            // string의 경우 패킷에 문자열 길이도 추가한다
             Write(_value.Length); // Add the length of the string to the packet
+            // string을 바이트 배열로 반환
             buffer.AddRange(Encoding.ASCII.GetBytes(_value)); // Add the string itself
         }
         #endregion
 
+        // Read()
+        // buffer에서 byte, byte[], short, int, long, float, bool, string등의 값을 읽고 읽은 값의 길이만금 readPos를 옮긴다.
         #region Read Data
         /// <summary>Reads a byte from the packet.</summary>
+        // 패킷에서 바이트를 읽습니다.
         /// <param name="_moveReadPos">Whether or not to move the buffer's read position.</param>
         public byte ReadByte(bool _moveReadPos = true)
         {
             if (buffer.Count > readPos)
             {
                 // If there are unread bytes
+                // 읽지 않은 바이트가 있다면
+
+                // readPos위치의 바이트를 가져온다.
                 byte _value = readableBuffer[readPos]; // Get the byte at readPos' position
                 if (_moveReadPos)
                 {
@@ -189,6 +208,7 @@ namespace GameServer
         }
 
         /// <summary>Reads an array of bytes from the packet.</summary>
+        // 패킷에서 바이트 배열을 읽습니다.
         /// <param name="_length">The length of the byte array.</param>
         /// <param name="_moveReadPos">Whether or not to move the buffer's read position.</param>
         public byte[] ReadBytes(int _length, bool _moveReadPos = true)
@@ -196,6 +216,9 @@ namespace GameServer
             if (buffer.Count > readPos)
             {
                 // If there are unread bytes
+                // GetRange(시작점, 길이)
+                
+                // readPos부터 _length범위의 바이트를 가져온다.
                 byte[] _value = buffer.GetRange(readPos, _length).ToArray(); // Get the bytes at readPos' position with a range of _length
                 // 만약 읽는 위치를 옮긴다면
                 if (_moveReadPos)
