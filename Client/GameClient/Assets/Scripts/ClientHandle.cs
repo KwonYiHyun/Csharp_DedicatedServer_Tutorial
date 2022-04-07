@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using GameServer;
+using System.Net;
 
 public class ClientHandle : MonoBehaviour
 {
@@ -12,5 +13,14 @@ public class ClientHandle : MonoBehaviour
         Debug.Log($"Message from server: {_msg}");
         Client.instance.myId=_myId;
         ClientSend.WelcomeReceived();
+
+        Client.instance.udp.Connect(((IPEndPoint)Client.instance.tcp.socket.Client.LocalEndPoint).Port);
+    }
+
+    public static void UDPTest(Packet _packet){
+        string _msg = _packet.ReadString();
+
+        Debug.Log($"Received packet via UDP. Contains message: {_msg}");
+        ClientSend.UDPTestReceived();
     }
 }
