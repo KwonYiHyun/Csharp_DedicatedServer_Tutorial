@@ -17,6 +17,7 @@ namespace GameServer
         private static void SendUDPData(int _toClient, Packet _packet)
         {
             _packet.WriteLength();
+            _packet.PrintPacket();
             Server.clients[_toClient].udp.SendData(_packet);
         }
 

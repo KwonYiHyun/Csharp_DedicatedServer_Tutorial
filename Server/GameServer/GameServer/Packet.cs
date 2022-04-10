@@ -51,6 +51,15 @@ namespace GameServer
             SetBytes(_data);
         }
 
+        public void PrintPacket()
+        {
+            Console.WriteLine("Count = " + buffer.Count);
+            for (int i = 0; i < buffer.Count; i++)
+            {
+                Console.WriteLine(buffer[i]);
+            }
+        }
+
         #region Functions
         /// <summary>Sets the packet's content and prepares it to be read.</summary>
         // 패킷의 내용을 설정하고 읽을 수 있도록 준비합니다.
