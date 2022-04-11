@@ -80,7 +80,7 @@ namespace GameServer
         }
 
         /// <summary>Inserts the given int at the start of the buffer.</summary>
-        // 버퍼의 시작부분에 지정된 int를 삽입합니다.
+        // 버퍼의 시작부분에 지정된 int를 byte로 변환하여 삽입합니다.
         /// <param name="_value">The int to insert.</param>
         public void InsertInt(int _value)
         {
@@ -129,10 +129,11 @@ namespace GameServer
         #endregion
 
         // Write()
-        // buffer에 byte, byte[], short, int, long, float, bool, string등의 값을 추가한다
+        // buffer에 byte, byte[], short, int, long, float, bool, string등의 값을 byte로 변환하여 추가한다
         #region Write Data
 
         /// <summary>Adds a byte to the packet.</summary>
+        // 패킷에 바이트를 추가합니다.
         /// <param name="_value">The byte to add.</param>
         public void Write(byte _value)
         {
@@ -148,6 +149,7 @@ namespace GameServer
             buffer.AddRange(_value);
         }
         /// <summary>Adds a short to the packet.</summary>
+        // 패킷에 short를 byte로 변환하여 추가합니다.
         /// <param name="_value">The short to add.</param>
         public void Write(short _value)
         {
@@ -156,38 +158,44 @@ namespace GameServer
             buffer.AddRange(BitConverter.GetBytes(_value));
         }
         /// <summary>Adds an int to the packet.</summary>
+        // 패킷에 int를 byte로 변환하여 추가합니다.
         /// <param name="_value">The int to add.</param>
         public void Write(int _value)
         {
             buffer.AddRange(BitConverter.GetBytes(_value));
         }
         /// <summary>Adds a long to the packet.</summary>
+        // 패킷에 long를 byte로 변환하여 추가합니다.
         /// <param name="_value">The long to add.</param>
         public void Write(long _value)
         {
             buffer.AddRange(BitConverter.GetBytes(_value));
         }
         /// <summary>Adds a float to the packet.</summary>
+        // 패킷에 float를 byte로 변환하여 추가합니다.
         /// <param name="_value">The float to add.</param>
         public void Write(float _value)
         {
             buffer.AddRange(BitConverter.GetBytes(_value));
         }
         /// <summary>Adds a bool to the packet.</summary>
+        // 패킷에 bool을 byte로 변환하여 추가합니다.
         /// <param name="_value">The bool to add.</param>
         public void Write(bool _value)
         {
             buffer.AddRange(BitConverter.GetBytes(_value));
         }
         /// <summary>Adds a string to the packet.</summary>
+        // 패킷에 string을 byte로 변환하여 추가합니다.
         /// <param name="_value">The string to add.</param>
         public void Write(string _value)
         {
             // string의 경우 패킷에 문자열 길이도 추가한다
             Write(_value.Length); // Add the length of the string to the packet
-            // string을 바이트 배열로 반환
+            // string을 바이트 배열로 반환하여 추가
             buffer.AddRange(Encoding.ASCII.GetBytes(_value)); // Add the string itself
         }
+
         #endregion
 
         // Read()
@@ -230,6 +238,7 @@ namespace GameServer
                 // GetRange(시작점, 길이)
                 
                 // readPos부터 _length범위의 바이트를 가져온다.
+                // 읽을 위치부터 읽을 길이만큼 받아서 배열로 받아 리턴한다
                 byte[] _value = buffer.GetRange(readPos, _length).ToArray(); // Get the bytes at readPos' position with a range of _length
                 // 만약 읽는 위치를 옮긴다면
                 if (_moveReadPos)
@@ -271,12 +280,14 @@ namespace GameServer
         // 패킷에서 int를 읽습니다.
         /// <param name="_moveReadPos">Whether or not to move the buffer's read position.</param>
         // 버퍼의 읽기 위치를 이동할지 여부를 지정합니다.
-        // 이걸로 id를 바로받아온다 원리 모르겠음
         public int ReadInt(bool _moveReadPos = true)
         {
             if (buffer.Count > readPos)
             {
                 // If there are unread bytes
+                // BitConverter.ToInt32()
+                // 지정된 위치에서 4바이트에서 변환된 32비트 부호 있는 정수를 반환합니다.
+                // 바이트 배열로 표시됩니다.
                 int _value = BitConverter.ToInt32(readableBuffer, readPos); // Convert the bytes to an int
                 if (_moveReadPos)
                 {
