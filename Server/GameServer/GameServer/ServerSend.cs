@@ -10,7 +10,9 @@ namespace GameServer
     {
         private static void SendTCPData(int _toClient, Packet _packet)
         {
+            // 패킷앞에 패킷의 길이를 삽입한다.
             _packet.WriteLength();
+            // Client id에 패킷을 보낸다
             Server.clients[_toClient].tcp.SendData(_packet);
         }
 
@@ -69,9 +71,11 @@ namespace GameServer
         {
             using (Packet _packet = new Packet((int)ServerPackets.welcome))
             {
+                // 패킷에 string 메시지 담기
                 _packet.Write(_msg);
+                // 패킷에 int 클라이언트번호 담기
                 _packet.Write(_toClient);
-
+                _packet.PrintPacket();
                 SendTCPData(_toClient, _packet);
             }
         }
