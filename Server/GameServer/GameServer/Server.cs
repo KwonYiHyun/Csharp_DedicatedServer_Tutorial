@@ -35,7 +35,9 @@ namespace GameServer
             // 비동기로 TCP연결을 받고 콜백을 설정
             tcpListener.BeginAcceptTcpClient(TCPConnectCallback, null);
 
+            // UDP 설정
             udpListener = new UdpClient(Port);
+            // 비동기로 UDP연결을 받고 콜백을 설정
             udpListener.BeginReceive(UDPReceiveCallback, null);
 
             Console.WriteLine($"Server started on {Port}");

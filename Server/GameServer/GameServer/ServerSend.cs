@@ -12,14 +12,20 @@ namespace GameServer
         {
             // 패킷앞에 패킷의 길이를 삽입한다.
             _packet.WriteLength();
+
+            // 앞의 함수들을 거쳐서 최종적으로 다음과같은 구조를 이룬다
+            // 최종 문자열길이 int 4바이트 / 처음패킷생성할때 등록한 delegate번호 int 4바이트 / 순수문자열길이 int 4바이트 / 문자열 바이트배열 / 클라이언트번호 int 4바이트
+            // TCP는 서버연결용으로 사용하고 그 후는 UDP로 통신해서 구조가 이런듯하다
+            // _packet.PrintPacket();
             // Client id에 패킷을 보낸다
             Server.clients[_toClient].tcp.SendData(_packet);
         }
 
         private static void SendUDPData(int _toClient, Packet _packet)
         {
+            // 앞의 함수들을 거쳐서 최종적으로 다음과같은 구조를 이룬다
+            // 최종 문자열길이 int 4바이트 / 문자열 바이트배열
             _packet.WriteLength();
-            _packet.PrintPacket();
             Server.clients[_toClient].udp.SendData(_packet);
         }
 
@@ -71,11 +77,13 @@ namespace GameServer
         {
             using (Packet _packet = new Packet((int)ServerPackets.welcome))
             {
-                // 패킷에 string 메시지 담기
+                // 패킷의 길이 + 패킷에 string 메시지 담기
                 _packet.Write(_msg);
                 // 패킷에 int 클라이언트번호 담기
                 _packet.Write(_toClient);
-                _packet.PrintPacket();
+
+                // TCP는 서버연결용이기 때문에 구조가 복잡하다
+                // 패킷길이 / 클라이언트id / 문자열길이 / 문자열 / 클라이언트 id
                 SendTCPData(_toClient, _packet);
             }
         }
