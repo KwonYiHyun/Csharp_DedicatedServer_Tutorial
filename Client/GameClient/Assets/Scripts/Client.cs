@@ -60,6 +60,7 @@ public class Client : MonoBehaviour
         public void SendData(Packet _packet){
             try{
                 _packet.InsertInt(instance.myId);
+                // ClientSendUDP-4 [내 클라이언트 id int 4바이트 / 최종 패킷 길이 int 4바이트 / 패킷번호 int 4바이트 / 문자열길이 int 4바이트 / 문자열 바이트배열]
                 if(socket!=null){
                     socket.BeginSend(_packet.ToArray(), _packet.Length(), null, null);
                 }
