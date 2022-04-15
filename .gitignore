@@ -95,8 +95,8 @@ x86/
 [Aa][Rr][Mm]/
 [Aa][Rr][Mm]64/
 bld/
-Server/GameServer/GameServer/[Bb]in/
-Server/GameServer/GameServer/[Oo]bj/
+Server/**/[Bb]in/
+Server/**/[Oo]bj/
 [Ll]og/
 [Ll]ogs/
 
