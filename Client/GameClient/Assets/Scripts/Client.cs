@@ -89,14 +89,14 @@ public class Client : MonoBehaviour
         private void HandleData(byte[] _data){
             using(Packet _packet=new Packet(_data)){
                 int _packetLenght = _packet.ReadInt();
-                // ReceiveUDP-2 [패킷번호 int 4바이트 / 문자열길이 int 4바이트 / 문자열 바이트배열]
+                // ReceiveUDP-2 [패킷번호 int 4바이트 / 문자열길이 int 4바이트 / 문자열 바이트배열] (패킷길이 읽음)
                 _data = _packet.ReadBytes(_packetLenght);
             }
 
             ThreadManager.ExecuteOnMainThread(() => { 
                 using(Packet _packet=new Packet(_data)){
                     int _packetId = _packet.ReadInt();
-                    // ReceiveUDP-3 [문자열길이 int 4바이트 / 문자열 바이트배열]
+                    // ReceiveUDP-3 [문자열길이 int 4바이트 / 문자열 바이트배열] (패킷번호 읽음)
                     packetHandlers[_packetId](_packet);
                 }
             });
@@ -171,7 +171,7 @@ public class Client : MonoBehaviour
 
             if(receivedData.UnreadLength()>=4){
                 _packetLenght = receivedData.ReadInt();
-                // ReceiveTCP-2 [패킷번호 int 4바이트 / 문자열길이 int 4바이트 / 문자열 바이트배열 / 보낼클라이언트 id int 4바이트]
+                // ReceiveTCP-2 [패킷번호 int 4바이트 / 문자열길이 int 4바이트 / 문자열 바이트배열 / 보낼클라이언트 id int 4바이트] (패킷길이 읽음)
                 if(_packetLenght<=0){
                     return true;
                 }
@@ -184,7 +184,7 @@ public class Client : MonoBehaviour
                 {
                     using (Packet _packet=new Packet(_packetBytes)){
                         int _packetId = _packet.ReadInt();
-                        // ReceiveTCP-3 [문자열길이 int 4바이트 / 문자열 바이트배열 / 보낼클라이언트 id int 4바이트]
+                        // ReceiveTCP-3 [문자열길이 int 4바이트 / 문자열 바이트배열 / 보낼클라이언트 id int 4바이트] (패킷번호 읽음)
                         packetHandlers[_packetId](_packet);
                     }
                 });
