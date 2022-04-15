@@ -83,20 +83,20 @@ crashlytics-build.properties
 mono_crash.*
 
 # Build results
-Server/GameServer/GameServer/[Dd]ebug/
-Server/GameServer/GameServer/[Dd]ebugPublic/
-Server/GameServer/GameServer/[Rr]elease/
-Server/GameServer/GameServer/[Rr]eleases/
+Server/**/[Dd]ebug/
+Server/**/[Dd]ebugPublic/
+Server/**/[Rr]elease/
+Server/**/[Rr]eleases/
 Server/**/x64/
 Server/**/x86/
 Server/**/[Ww][Ii][Nn]32/
 Server/**/[Aa][Rr][Mm]/
 Server/**/[Aa][Rr][Mm]64/
-Server/GameServer/GameServer/bld/
-Server/GameServer/GameServer/[Bb]in/
-Server/GameServer/GameServer/[Oo]bj/
-Server/GameServer/GameServer/[Ll]og/
-Server/GameServer/GameServer/[Ll]ogs/
+Server/**/bld/
+Server/**/[Bb]in/**
+Server/**/[Oo]bj/
+Server/**/[Ll]og/
+Server/**/[Ll]ogs/
 
 # Visual Studio 2015/2017 cache/options directory
 .vs/
