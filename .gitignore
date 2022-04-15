@@ -30,7 +30,7 @@ ExportedObj/
 .consulo/
 *.csproj
 *.unityproj
-Client/GameClient/.sln
+Client/GameClient/*.sln
 *.suo
 *.tmp
 *.user
