@@ -366,6 +366,7 @@ namespace GameServer
         }
 
         /// <summary>Reads a string from the packet.</summary>
+        // ReadInt를 통해서 길이를 먼저읽고 읽은 길이만큼의 문자열을 더 읽어서 리턴
         /// <param name="_moveReadPos">Whether or not to move the buffer's read position.</param>
         public string ReadString(bool _moveReadPos = true)
         {
