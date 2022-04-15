@@ -58,6 +58,7 @@ namespace GameServer
                 // 데이터를받을 바이트버퍼 / 버퍼에서 데이터 저장을 시작할 위치 / 읽을 바이트 크기 / 콜백
                 stream.BeginRead(receiveBuffer, 0, dataBufferSize, ReciveCallback, null);
 
+                // ServerSend.Welcome() -> ServerSend.SendTCPData() -> Client.SendData()
                 ServerSend.Welcome(id, "Welcome to the server!");
             }
 
