@@ -86,12 +86,16 @@ namespace GameServer
                         return;
                     }
 
+                    // endPoint(끝점)이 null이면 udp첫 연결이기 때문에 Connect호출
                     if (clients[_clientId].udp.endPoint == null)
                     {
                         clients[_clientId].udp.Connect(_clientEndPoint);
                         return;
                     }
 
+                    // 이미 연결된 udp통신에서 패킷을 받았을 경우 HandleData를 통해서 정해진 delegate에 등록해둔 함수 호출을 위해서 HandleData호출
+                    // 분해 순서로 봤을 때 그럼 처음 udp패킷 모양은
+                    // 클라이언트 id int 4바이트 / 패킷길이 int 4바이트 / 문자열 바이트배열 / 패킷번호 int 4바이트
                     if (clients[_clientId].udp.endPoint.ToString() == _clientEndPoint.ToString())
                     {
                         clients[_clientId].udp.HandleData(_packet);
