@@ -68,6 +68,8 @@ public class Client : MonoBehaviour
             }
         }
 
+        // 서버측에서 패킷이 왔을 때의 구조
+        // ReceiveUDP-1 [최종 패킷길이 int 4바이트 / 패킷번호 int 4바이트 / 문자열길이 int 4바이트 / 문자열 바이트배열]
         private void ReceiveCallback(IAsyncResult _result){
             try{
                 byte[] _data = socket.EndReceive(_result, ref endPoint);
@@ -86,12 +88,14 @@ public class Client : MonoBehaviour
         private void HandleData(byte[] _data){
             using(Packet _packet=new Packet(_data)){
                 int _packetLenght = _packet.ReadInt();
+                // ReceiveUDP-2 [패킷번호 int 4바이트 / 문자열길이 int 4바이트 / 문자열 바이트배열]
                 _data = _packet.ReadBytes(_packetLenght);
             }
 
             ThreadManager.ExecuteOnMainThread(() => { 
                 using(Packet _packet=new Packet(_data)){
                     int _packetId = _packet.ReadInt();
+                    // ReceiveUDP-3 [문자열길이 int 4바이트 / 문자열 바이트배열]
                     packetHandlers[_packetId](_packet);
                 }
             });
@@ -137,6 +141,8 @@ public class Client : MonoBehaviour
             }
         }
 
+        // 서버측에서 패킷이 왔을 때의 구조
+        // ReceiveTCP-1 [최종 패킷길이 int 4바이트 / 패킷번호 int 4바이트 / 문자열길이 int 4바이트 / 문자열 바이트배열 / 이패킷을보낸 클라이언트 id int 4바이트]
         private void ReceiveCallback(IAsyncResult _result){
             try
             {
@@ -164,6 +170,7 @@ public class Client : MonoBehaviour
 
             if(receivedData.UnreadLength()>=4){
                 _packetLenght = receivedData.ReadInt();
+                // ReceiveTCP-2 [패킷번호 int 4바이트 / 문자열길이 int 4바이트 / 문자열 바이트배열 / 보낼클라이언트 id int 4바이트]
                 if(_packetLenght<=0){
                     return true;
                 }
@@ -176,6 +183,7 @@ public class Client : MonoBehaviour
                 {
                     using (Packet _packet=new Packet(_packetBytes)){
                         int _packetId = _packet.ReadInt();
+                        // ReceiveTCP-3 [문자열길이 int 4바이트 / 문자열 바이트배열 / 보낼클라이언트 id int 4바이트]
                         packetHandlers[_packetId](_packet);
                     }
                 });

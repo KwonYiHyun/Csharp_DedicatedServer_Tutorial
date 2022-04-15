@@ -7,8 +7,13 @@ using System.Net;
 public class ClientHandle : MonoBehaviour
 {
     public static void Welcome(Packet _packet){
+        // ReadString()
+        // ReadInt를 통해서 문자열의 길이를 읽고 그 후 읽은 길이만큼 문자열을 읽어서 리턴한다
         string _msg=_packet.ReadString();
+        // ReceiveTCP-4 [보낼클라이언트 id int 4바이트]
+
         int _myId=_packet.ReadInt();
+        // ReceiveTCP-5 []
 
         Debug.Log($"Message from server: {_msg}");
         Client.instance.myId=_myId;
@@ -18,8 +23,10 @@ public class ClientHandle : MonoBehaviour
     }
 
     public static void UDPTest(Packet _packet){
+        // ReadString()
+        // ReadInt를 통해서 문자열의 길이를 읽고 그 후 읽은 길이만큼 문자열을 읽어서 리턴한다
         string _msg = _packet.ReadString();
-
+        // ReceiveUDP-4 []
         Debug.Log($"Received packet via UDP. Contains message: {_msg}");
         ClientSend.UDPTestReceived();
     }
