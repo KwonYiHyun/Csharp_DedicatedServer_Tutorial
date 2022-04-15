@@ -64,6 +64,8 @@ namespace GameServer
             Console.WriteLine($"{_client.Client.RemoteEndPoint} failed to connect: Server full!");
         }
 
+        // 클라이언트측에서 패킷이 왔을 때의 구조
+        // ReceiveUDP-1 [이패킷을보낸 클라이언트 id int 4바이트 / 최종 패킷 길이 int 4바이트 / 패킷번호 int 4바이트 / 문자열길이 int 4바이트 / 문자열 바이트배열]
         private static void UDPReceiveCallback(IAsyncResult _result)
         {
             try
@@ -80,6 +82,7 @@ namespace GameServer
                 using (Packet _packet=new Packet(_data))
                 {
                     int _clientId = _packet.ReadInt();
+                    // ReceiveUDP-2 [최종 패킷 길이 int 4바이트 / 패킷번호 int 4바이트 / 문자열길이 int 4바이트 / 문자열 바이트배열] (클라이언트 id읽음)
 
                     if (_clientId == 0)
                     {

@@ -81,6 +81,8 @@ namespace GameServer
             }
 
             // 스트림에 데이터가 왔을 떄 콜백동작
+            // 클라이언트측에서 패킷이 왔을 때의 구조
+            // ReceiveTCP-1 [최종 패킷 길이 int 4바이트 / 패킷번호 int 4바이트 / 내 클라이언트 id int 4바이트 / 문자열길이 int 4바이트 / 문자열 바이트배열]
             private void ReciveCallback(IAsyncResult _result)
             {
                 try
@@ -122,6 +124,7 @@ namespace GameServer
                 if (receivedData.UnreadLength() >= 4)
                 {
                     _packetLenght = receivedData.ReadInt();
+                    // ReceiveTCP-2 [패킷번호 int 4바이트 / 내 클라이언트 id int 4바이트 / 문자열길이 int 4바이트 / 문자열 바이트배열] (패킷길이 읽음)
                     if (_packetLenght <= 0)
                     {
                         return true;
@@ -137,6 +140,7 @@ namespace GameServer
                         using (Packet _packet = new Packet(_packetBytes))
                         {
                             int _packetId = _packet.ReadInt();
+                            // ReceiveTCP-3 [내 클라이언트 id int 4바이트 / 문자열길이 int 4바이트 / 문자열 바이트배열] (패킷번호 읽음)
                             Server.packetHandlers[_packetId](id, _packet);
                         }
                     });
@@ -185,6 +189,7 @@ namespace GameServer
             public void HandleData(Packet _packetData)
             {
                 int _packetLength = _packetData.ReadInt();
+                // ReceiveUDP-3 [패킷번호 int 4바이트 / 문자열길이 int 4바이트 / 문자열 바이트배열] (패킷길이 읽음)
                 byte[] _packetBytes = _packetData.ReadBytes(_packetLength);
 
                 ThreadManager.ExecuteOnMainThread(() =>
@@ -192,6 +197,7 @@ namespace GameServer
                     using(Packet _packet=new Packet(_packetBytes))
                     {
                         int _packetId = _packet.ReadInt();
+                        // ReceiveUDP-4 [문자열길이 int 4바이트 / 문자열 바이트배열] (패킷번호 읽음)
                         Server.packetHandlers[_packetId](id, _packet);
                     }
                 });
