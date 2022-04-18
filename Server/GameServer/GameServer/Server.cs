@@ -129,7 +129,7 @@ namespace GameServer
         private static void InitializeServerData()
         {
             // 클라이언트객체를 미리 최대 플레이어만큼 생성하여 배열에 등록함
-            for (int i = 0; i < MaxPlayers; i++)
+            for (int i = 1; i <= MaxPlayers; i++)
             {
                 clients.Add(i, new Client(i));
             }
@@ -137,7 +137,8 @@ namespace GameServer
             packetHandlers = new Dictionary<int, PacketHandler>()
             {
                 { (int)ClientPackets.welcomeReceived, ServerHandle.WelcomeReceived },
-                { (int)ClientPackets.udpTestReceive, ServerHandle.UDPTestReceived }
+                //{ (int)ClientPackets.udpTestReceive, ServerHandle.UDPTestReceived }
+                { (int)ClientPackets.playerMovement, ServerHandle.PlayerMovement },
             };
             Console.WriteLine("Initialized packets.");
         }

@@ -29,11 +29,23 @@ public class ClientSend : MonoBehaviour
         }
     }
 
-    public static void UDPTestReceived(){
-        using(Packet _packet=new Packet((int)ClientPackets.udpTestReceive)){
-            // ClientSendUDP-1 [패킷번호 int 4바이트]
-            _packet.Write("Received a UDP packet.");
-            // ClientSendUDP-2 [패킷번호 int 4바이트 / 문자열길이 int 4바이트 / 문자열 바이트배열]
+    // public static void UDPTestReceived(){
+    //     using(Packet _packet=new Packet((int)ClientPackets.udpTestReceive)){
+    //         // ClientSendUDP-1 [패킷번호 int 4바이트]
+    //         _packet.Write("Received a UDP packet.");
+    //         // ClientSendUDP-2 [패킷번호 int 4바이트 / 문자열길이 int 4바이트 / 문자열 바이트배열]
+    //         SendUDPData(_packet);
+    //     }
+    // }
+
+    public static void PlayerMovement(bool[] _inputs){
+        using (Packet _packet=new Packet((int)ClientPackets.playerMovement)){
+            _packet.Write(_inputs.Length);
+            foreach(bool _input in _inputs){
+                _packet.Write(_input);
+            }
+            _packet.Write(GameManager.players[Client.instance.myId].transform.rotation);
+
             SendUDPData(_packet);
         }
     }
