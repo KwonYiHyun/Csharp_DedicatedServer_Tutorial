@@ -10,8 +10,17 @@ Client/GameClient/[Bb]uilds/
 Client/GameClient/[Ll]ogs/
 Client/GameClient/[Mm]emoryCaptures/
 
+ServerUnity/ServerUnity/[Ll]ibrary/
+ServerUnity/ServerUnity/[Tt]emp/
+ServerUnity/ServerUnity/[Oo]bj/
+ServerUnity/ServerUnity/[Bb]uild/
+ServerUnity/ServerUnity/[Bb]uilds/
+ServerUnity/ServerUnity/[Ll]ogs/
+ServerUnity/ServerUnity/[Mm]emoryCaptures/
+
 # Asset meta data should only be ignored when the corresponding asset is also ignored
 !Client/GameClient/[Aa]ssets/**/*.meta
+!ServerUnity/ServerUnity/[Aa]ssets/**/*.meta
 
 # Uncomment this line if you wish to ignore the asset store tools plugin
 # Client/GameClient/[Aa]ssets/AssetStoreTools*
@@ -29,8 +38,10 @@ Client/GameClient/[Mm]emoryCaptures/
 ExportedObj/
 .consulo/
 Client/GameClient/*.csproj
+ServerUnity/ServerUnity/*.csproj
 *.unityproj
 Client/GameClient/*.sln
+ServerUnity/ServerUnity/*.sln
 *.suo
 *.tmp
 *.user
