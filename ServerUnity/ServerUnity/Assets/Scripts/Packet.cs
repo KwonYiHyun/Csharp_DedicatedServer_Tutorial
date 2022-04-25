@@ -10,7 +10,10 @@ using System;
         // udpTest
         spawnPlayer,
         playerPosition,
-        playerRotation
+        playerRotation,
+        playerDisonnected,
+        playerHealth,
+        playerRespawned
     }
 
     /// <summary>Sent from client to server.</summary>
@@ -18,7 +21,8 @@ using System;
     {
         welcomeReceived = 1,
         // udpTestReceive
-        playerMovement
+        playerMovement,
+        playerShoot
     }
 
     public class Packet : IDisposable

@@ -12,7 +12,10 @@ namespace GameServer
         // udpTest
         spawnPlayer,
         playerPosition,
-        playerRotation
+        playerRotation,
+        playerDisconnected,
+        playerHealth,
+        playerRespawned
     }
 
     /// <summary>Sent from client to server.</summary>
@@ -20,7 +23,8 @@ namespace GameServer
     {
         welcomeReceived = 1,
         // udpTestReceive
-        playerMovement
+        playerMovement,
+        playerShoot
     }
 
     public class Packet : IDisposable
