@@ -22,7 +22,8 @@ using System;
         welcomeReceived = 1,
         // udpTestReceive
         playerMovement,
-        playerShoot
+        playerShoot,
+        unityChan
     }
 
     public class Packet : IDisposable

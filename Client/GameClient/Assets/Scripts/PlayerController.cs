@@ -10,6 +10,11 @@ public class PlayerController : MonoBehaviour
         if(Input.GetKeyDown(KeyCode.Mouse0)){
             ClientSend.PlayerShoot(camTransform.forward);
         }
+
+        if(Input.GetKeyDown(KeyCode.B)){
+            Debug.Log("Send!");
+            ClientSend.unityChan();
+        }
     }
 
     private void FixedUpdate() {

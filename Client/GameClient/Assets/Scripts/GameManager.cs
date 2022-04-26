@@ -8,6 +8,7 @@ public class GameManager : MonoBehaviour
     public static Dictionary<int, PlayerManager> players = new Dictionary<int, PlayerManager>();
     public GameObject localPlayerPrefab;
     public GameObject playerPrefab;
+    public GameObject unityChan;
 
     private void Awake() {
         if(instance==null){

@@ -4,8 +4,13 @@ using UnityEngine;
 using System.Net;
 using System.Net.Sockets;
 using System;
+using System.IO;
+using System.Runtime.Serialization.Formatters.Binary;
 
-public class ServerHandle
+using System.Runtime.Serialization;
+using System.Xml.Linq;
+
+public class ServerHandle : MonoBehaviour
 {
     public static void WelcomeReceived(int _fromClient, Packet _packet)
     {
@@ -50,4 +55,33 @@ public class ServerHandle
 
         Server.clients[_fromClient].player.Shoot(_shootDirection);
     }
+
+    public static void unityChan(int _fromClient, Packet _packet){
+        Debug.Log("Receive!");
+        int _length = _packet.ReadInt();
+        Debug.Log("length = " + _length);
+        byte[] _model = _packet.ReadBytes(_length);
+
+        unityC _unityc = new unityC();
+
+        using(var memStream=new MemoryStream()){
+            var binForm = new BinaryFormatter();
+            // memStream.Write(_model, 0, _model.Length);
+            // memStream.Seek(0, SeekOrigin.Begin);
+            // _gameModel = binForm.Deserialize(memStream);
+            // Instantiate((UnityEngine.Object)_gameModel, Vector3.zero, Quaternion.identity);
+
+            memStream.Write(_model, 0, _model.Length);
+            memStream.Seek(0, SeekOrigin.Begin);
+
+            _unityc = (unityC)binForm.Deserialize(memStream);
+
+            Instantiate(_unityc.model, Vector3.zero, Quaternion.identity);
+        }
+    }
+}
+
+[DataContract]
+public class unityC {
+    public GameObject model;
 }

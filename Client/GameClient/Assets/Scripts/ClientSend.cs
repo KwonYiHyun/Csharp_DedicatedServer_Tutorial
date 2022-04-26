@@ -2,6 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 using GameServer;
+using System.Runtime.Serialization.Formatters.Binary;
+using System.IO;
+
+using System.Runtime.Serialization;
+using System.Xml.Linq;
 
 public class ClientSend : MonoBehaviour
 {
@@ -57,5 +62,36 @@ public class ClientSend : MonoBehaviour
             SendTCPData(_packet);
         }
     }
+
+    public static void unityChan(){
+        using(Packet _packet=new Packet((int)ClientPackets.unityChan)){
+            // BinaryFormatter bf = new BinaryFormatter();
+            // using(var ms=new MemoryStream()){
+            //     bf.Serialize(ms, (System.Object)GameManager.instance.unityChan);
+            //     _packet.Write(ms.ToArray());
+
+            //     SendTCPData(_packet);
+            // }
+
+            unityC _unityc = new unityC();
+            _unityc.model = GameManager.instance.unityChan;
+
+            DataContractSerializer bf = new DataContractSerializer(_unityc.GetType());
+            MemoryStream streamer = new MemoryStream();
+
+            bf.WriteObject(streamer, _unityc);
+            streamer.Seek(0, SeekOrigin.Begin);
+
+            byte[] arr = streamer.GetBuffer();
+            _packet.Write(arr);
+
+            SendTCPData(_packet);
+        }
+    }
     #endregion
+}
+
+[DataContract]
+public class unityC {
+    public GameObject model;
 }
