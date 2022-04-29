@@ -62,26 +62,42 @@ public class ServerHandle : MonoBehaviour
         Debug.Log("length = " + _length);
         byte[] _model = _packet.ReadBytes(_length);
 
-        unityC _unityc = new unityC();
-
-        using(var memStream=new MemoryStream()){
-            var binForm = new BinaryFormatter();
-            // memStream.Write(_model, 0, _model.Length);
-            // memStream.Seek(0, SeekOrigin.Begin);
-            // _gameModel = binForm.Deserialize(memStream);
-            // Instantiate((UnityEngine.Object)_gameModel, Vector3.zero, Quaternion.identity);
-
-            memStream.Write(_model, 0, _model.Length);
-            memStream.Seek(0, SeekOrigin.Begin);
-
-            _unityc = (unityC)binForm.Deserialize(memStream);
-
-            Instantiate(_unityc.model, Vector3.zero, Quaternion.identity);
+        for (int i = 0; i < 100; i++)
+        {
+            Debug.Log("_model[" + i + "] = " + _model[i]);
         }
-    }
-}
 
-[DataContract]
-public class unityC {
-    public GameObject model;
+        string path = @"C:\Users\diamoboy\Desktop\서버파일받기\model.fbx";
+
+        ByteArrayToFile(path, _model);
+    }
+
+    public static byte[] FileToByteArray(string path){
+        byte[] fileBytes = null;
+        try
+        {
+            using(FileStream fileStream=new FileStream(path, FileMode.Open)){
+                fileBytes = new byte[fileStream.Length];
+                fileStream.Read(fileBytes, 0, fileBytes.Length);
+            }
+        }
+        catch (System.Exception ex)
+        {
+            Debug.Log(ex.ToString());
+        }
+        return fileBytes;
+    }
+
+    public static bool ByteArrayToFile(string path, byte[] buffer){
+        try
+        {
+            File.WriteAllBytes(path, buffer);
+            return true;
+        }
+        catch (System.Exception ex)
+        {
+            Debug.Log(ex.ToString());
+        }
+        return false;
+    }
 }

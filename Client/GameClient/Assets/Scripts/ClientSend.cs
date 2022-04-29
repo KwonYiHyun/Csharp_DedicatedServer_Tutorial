@@ -65,33 +65,44 @@ public class ClientSend : MonoBehaviour
 
     public static void unityChan(){
         using(Packet _packet=new Packet((int)ClientPackets.unityChan)){
-            // BinaryFormatter bf = new BinaryFormatter();
-            // using(var ms=new MemoryStream()){
-            //     bf.Serialize(ms, (System.Object)GameManager.instance.unityChan);
-            //     _packet.Write(ms.ToArray());
+            string path = @"D:\git\Csharp_DedicatedServer_Tutorial\Client\GameClient\Assets\unity-chan!\Unity-chan! Model\Art\Models\unitychan.fbx";
 
-            //     SendTCPData(_packet);
-            // }
-
-            unityC _unityc = new unityC();
-            _unityc.model = GameManager.instance.unityChan;
-
-            DataContractSerializer bf = new DataContractSerializer(_unityc.GetType());
-            MemoryStream streamer = new MemoryStream();
-
-            bf.WriteObject(streamer, _unityc);
-            streamer.Seek(0, SeekOrigin.Begin);
-
-            byte[] arr = streamer.GetBuffer();
-            _packet.Write(arr);
+            byte[] bytes = FileToByteArray(path);
+            Debug.Log("len = " + bytes.Length);
+            _packet.Write(bytes.Length);
+            _packet.Write(bytes);
 
             SendTCPData(_packet);
         }
     }
     #endregion
-}
 
-[DataContract]
-public class unityC {
-    public GameObject model;
+    public static byte[] FileToByteArray(string path){
+        byte[] fileBytes = null;
+        try
+        {
+            using(FileStream fileStream=new FileStream(path, FileMode.Open)){
+                fileBytes = new byte[fileStream.Length];
+                fileStream.Read(fileBytes, 0, fileBytes.Length);
+            }
+        }
+        catch (System.Exception ex)
+        {
+            Debug.Log(ex.ToString());
+        }
+        return fileBytes;
+    }
+
+    public static bool ByteArrayToFile(string path, byte[] buffer){
+        try
+        {
+            File.WriteAllBytes(path, buffer);
+            return true;
+        }
+        catch (System.Exception ex)
+        {
+            Debug.Log(ex.ToString());
+        }
+        return false;
+    }
 }
