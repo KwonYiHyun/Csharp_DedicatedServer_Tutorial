@@ -10,6 +10,8 @@ Client/GameClient/[Bb]uilds/
 Client/GameClient/[Ll]ogs/
 Client/GameClient/[Mm]emoryCaptures/
 
+Client/GameClient/Assets/unity-chan!/*
+
 ServerUnity/ServerUnity/[Ll]ibrary/
 ServerUnity/ServerUnity/[Tt]emp/
 ServerUnity/ServerUnity/[Oo]bj/
